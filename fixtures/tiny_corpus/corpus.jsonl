@@ -1,0 +1,5 @@
+{"_id": "doc1", "title": "Machine Learning Overview", "text": "Supervised learning algorithms map inputs to outputs using labeled training data."}
+{"_id": "doc2", "title": "Information Retrieval Systems", "text": "Dense retrieval and BM25 inverted indices are standard tools for search engines."}
+{"_id": "doc3", "title": "Cross Encoders for Ranking", "text": "Cross encoders process query and document pairs jointly to predict relevance scores."}
+{"_id": "doc4", "title": "Cardiovascular Health", "text": "Aerobic exercise and balanced nutrition reduce risk of heart disease."}
+{"_id": "doc5", "title": "Vector Databases and HNSW", "text": "Hierarchical Navigable Small World graphs provide efficient approximate nearest neighbor search."}
