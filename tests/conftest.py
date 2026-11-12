@@ -1,6 +1,10 @@
 import json
+import os
 from pathlib import Path
 from typing import Dict
+
+# Prevent ir_datasets from querying unauthorized directories on sandboxed environments / Windows
+os.environ.setdefault("IR_DATASETS_HOME", str(Path(__file__).parent.parent / ".ir_datasets"))
 
 import pytest
 

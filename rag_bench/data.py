@@ -2,11 +2,10 @@
 
 import hashlib
 import json
-import os
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Optional
-import requests
+from typing import Dict, Optional
+
 from beir import util
 
 

@@ -1,7 +1,9 @@
 """Cross-encoder reranker using sentence-transformers CrossEncoder."""
 
+import os
 from typing import Dict, List, Mapping, Sequence, Tuple
 
+import torch
 from sentence_transformers import CrossEncoder
 
 from rag_bench.retrievers.base import BaseRetriever, format_doc_text
@@ -18,7 +20,7 @@ class CrossEncoderReranker:
         model_name: str = CROSS_ENCODER_MODEL_NAME,
         revision: str = CROSS_ENCODER_REVISION,
         max_length: int = 512,
-        batch_size: int = 32,
+        batch_size: int = 128,
         device: str = "cpu",
     ) -> None:
         self.model_name = model_name
@@ -27,6 +29,14 @@ class CrossEncoderReranker:
         self.batch_size = batch_size
         self.device = device
         self._model: CrossEncoder | None = None
+        self.score_cache: Dict[Tuple[str, str], float] = {}
+
+        try:
+            cores = os.cpu_count() or 8
+            target_threads = max(1, int(cores * 0.8))
+            torch.set_num_threads(target_threads)
+        except Exception:
+            pass
 
     @property
     def model(self) -> CrossEncoder:
@@ -40,6 +50,22 @@ class CrossEncoderReranker:
             )
         return self._model
 
+    def warm_cache_pairs(self, pairs: Sequence[Tuple[str, str]]) -> None:
+        """Score any uncached (query, doc_text) pairs in a single batched pass."""
+        uncached = list(set([p for p in pairs if p not in self.score_cache]))
+        if not uncached:
+            return
+
+        scores = self.model.predict(
+            uncached,
+            batch_size=self.batch_size,
+            show_progress_bar=False,
+            convert_to_numpy=True,
+        )
+
+        for p, s in zip(uncached, scores):
+            self.score_cache[p] = float(s)
+
     def rerank(
         self,
         query: str,
@@ -52,7 +78,6 @@ class CrossEncoderReranker:
         if not candidates:
             return []
 
-        # Slice to top_n candidates
         rerank_pool = list(candidates[:top_n])
         pairs: List[Tuple[str, str]] = []
         valid_doc_ids: List[str] = []
@@ -66,20 +91,15 @@ class CrossEncoderReranker:
         if not pairs:
             return list(candidates[:top_k])
 
-        scores = self.model.predict(
-            pairs,
-            batch_size=self.batch_size,
-            show_progress_bar=False,
-            convert_to_numpy=True,
-        )
+        # Warm any uncached pairs
+        self.warm_cache_pairs(pairs)
 
         reranked = [
-            (doc_id, float(s))
-            for doc_id, s in zip(valid_doc_ids, scores)
+            (doc_id, self.score_cache[(query, format_doc_text(corpus[doc_id]))])
+            for doc_id in valid_doc_ids
         ]
         reranked.sort(key=lambda x: x[1], reverse=True)
 
-        # If candidates beyond top_n exist and top_k > top_n, append them after min score
         if len(candidates) > top_n and top_k > top_n:
             min_rerank_score = min(s for _, s in reranked) - 1.0
             remainder = [

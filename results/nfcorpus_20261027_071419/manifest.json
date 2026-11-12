@@ -1,0 +1,49 @@
+{
+  "dataset": "nfcorpus",
+  "seed": 42,
+  "git_sha": "a6a1d6eaaddab59ed875e3071d7381b04c15e0f9",
+  "lockfile_sha256": "5d17aca9a83a44d0b164b132fb7c5b711bee2e4f9b13ac26a64488ffa53789c3",
+  "dataset_checksums": {
+    "corpus.jsonl": "10cc83ef1826b1425e6a87090b5140b39b27755d5a27e48215a88611c899991f",
+    "queries.jsonl": "d024e6621b84925d485ae473d316a0c3af31c62c8068a59fb29d22f7613aef2a",
+    "qrels/train.tsv": "6336b80f9bffc4f063f3aa450047ad35c0b7c534efe4a6ba35e16dbace047f6a",
+    "qrels/dev.tsv": "b1d38b5e8f78c4a5820bce2b7ec2db54911d7690dc601e76811846b211180bd8",
+    "qrels/test.tsv": "f8fba6ef3d4dd9c3a242a8ba4ae38276fc3622fce7dcbae764766d564542fd2a"
+  },
+  "hardware": {
+    "os": "Windows 10",
+    "os_version": "10.0.26300",
+    "cpu_model": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "logical_cores": 12,
+    "ram_gb": 15.34,
+    "gpu_used": false,
+    "torch_version": "2.14.1+cpu",
+    "torch_thread_count": 9
+  },
+  "models": {
+    "dense_model": "BAAI/bge-small-en-v1.5",
+    "dense_revision": "5c38ec7c405ec4b44b94cc5a9bb96e735b38267a",
+    "reranker_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+    "reranker_revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a"
+  },
+  "extra": {
+    "run_id": "nfcorpus_20261027_071419",
+    "timestamp": "20261027_071419",
+    "cost_metrics": {
+      "bm25_index_build_sec": 1.7092604000000051,
+      "bm25_memory_mb": 3.6634292602539062,
+      "dense_embedding_sec": 882.9260105999999,
+      "dense_memory_mb": 5.32177734375,
+      "hnsw_index_build_sec": 0.516923800000086,
+      "rerank_sec_bm25+rerank_N20": 0.0435287000000244,
+      "rerank_sec_bm25+rerank_N50": 0.049772200000006706,
+      "rerank_sec_bm25+rerank_N100": 0.0885361999999077,
+      "rerank_sec_dense+rerank_N20": 0.03082520000043587,
+      "rerank_sec_dense+rerank_N50": 0.06003039999995963,
+      "rerank_sec_dense+rerank_N100": 0.10987759999989066,
+      "rerank_sec_hybrid_rrf_tuned+rerank_N20": 0.0381545999998707,
+      "rerank_sec_hybrid_rrf_tuned+rerank_N50": 0.06016659999932017,
+      "rerank_sec_hybrid_rrf_tuned+rerank_N100": 0.10757329999978538
+    }
+  }
+}

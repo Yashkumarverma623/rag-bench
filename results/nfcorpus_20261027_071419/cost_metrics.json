@@ -1,0 +1,16 @@
+{
+  "bm25_index_build_sec": 1.7092604000000051,
+  "bm25_memory_mb": 3.6634292602539062,
+  "dense_embedding_sec": 882.9260105999999,
+  "dense_memory_mb": 5.32177734375,
+  "hnsw_index_build_sec": 0.516923800000086,
+  "rerank_sec_bm25+rerank_N20": 0.0435287000000244,
+  "rerank_sec_bm25+rerank_N50": 0.049772200000006706,
+  "rerank_sec_bm25+rerank_N100": 0.0885361999999077,
+  "rerank_sec_dense+rerank_N20": 0.03082520000043587,
+  "rerank_sec_dense+rerank_N50": 0.06003039999995963,
+  "rerank_sec_dense+rerank_N100": 0.10987759999989066,
+  "rerank_sec_hybrid_rrf_tuned+rerank_N20": 0.0381545999998707,
+  "rerank_sec_hybrid_rrf_tuned+rerank_N50": 0.06016659999932017,
+  "rerank_sec_hybrid_rrf_tuned+rerank_N100": 0.10757329999978538
+}

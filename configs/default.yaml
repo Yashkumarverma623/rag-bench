@@ -1,0 +1,39 @@
+seed: 42
+data_dir: "datasets"
+results_dir: "results"
+
+datasets:
+  - "scifact"
+  - "nfcorpus"
+
+allow_fiqa: false
+
+models:
+  dense:
+    name: "BAAI/bge-small-en-v1.5"
+    revision: "5c38ec7c405ec4b44b94cc5a9bb96e735b38267a"
+    batch_size: 128
+  reranker:
+    name: "cross-encoder/ms-marco-MiniLM-L-6-v2"
+    revision: "233902d25c440f23af6f7d6e94d2946bac0bee0a"
+    max_length: 512
+    batch_size: 128
+
+bm25:
+  k1: 1.2
+  b: 0.75
+
+hnsw:
+  m: 32
+  ef_construction: 64
+  ef_search: 64
+  sweep_ef_search: [10, 20, 40, 64, 128, 256]
+
+tuning:
+  rrf_k_candidates: [10, 30, 60, 100]
+  weighted_rrf_bm25_weights: [0.25, 0.5, 0.75, 1.0, 1.5]
+  score_fusion_alphas: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+
+rerank_candidate_counts: [20, 50, 100]
+
+latency_warmup_queries: 20

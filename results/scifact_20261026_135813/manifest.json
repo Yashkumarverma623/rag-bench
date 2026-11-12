@@ -1,0 +1,48 @@
+{
+  "dataset": "scifact",
+  "seed": 42,
+  "git_sha": "a6a1d6eaaddab59ed875e3071d7381b04c15e0f9",
+  "lockfile_sha256": "5d17aca9a83a44d0b164b132fb7c5b711bee2e4f9b13ac26a64488ffa53789c3",
+  "dataset_checksums": {
+    "corpus.jsonl": "dec31c8182f3d744c7d2c09423756fd1d17cbef75808db13ba01cc0aab4d1ac6",
+    "queries.jsonl": "8ff84a7c903f722981cd8d595c022660140c51867b27608a6d4910db86080313",
+    "qrels/train.tsv": "a53f2114831916c096b6c37d9e54da68cef4efdcdbd5ed46533601af972acf1d",
+    "qrels/test.tsv": "0864bb985e0ca2367ba217977e72004d549054b2b06666ed9d4825ac7c21284c"
+  },
+  "hardware": {
+    "os": "Windows 10",
+    "os_version": "10.0.26300",
+    "cpu_model": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "logical_cores": 12,
+    "ram_gb": 15.34,
+    "gpu_used": false,
+    "torch_version": "2.14.1+cpu",
+    "torch_thread_count": 12
+  },
+  "models": {
+    "dense_model": "BAAI/bge-small-en-v1.5",
+    "dense_revision": "5c38ec7c405ec4b44b94cc5a9bb96e735b38267a",
+    "reranker_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+    "reranker_revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a"
+  },
+  "extra": {
+    "run_id": "scifact_20261026_135813",
+    "timestamp": "20261026_135813",
+    "cost_metrics": {
+      "bm25_index_build_sec": 0.9563849000005575,
+      "bm25_memory_mb": 4.8563995361328125,
+      "dense_embedding_sec": 0.004643799999030307,
+      "dense_memory_mb": 7.59228515625,
+      "hnsw_index_build_sec": 0.08245130000068457,
+      "rerank_sec_bm25+rerank_N20": 0.04895659999965574,
+      "rerank_sec_bm25+rerank_N50": 0.08944060000067111,
+      "rerank_sec_bm25+rerank_N100": 0.1426419999988866,
+      "rerank_sec_dense+rerank_N20": 0.044434700001147576,
+      "rerank_sec_dense+rerank_N50": 0.09085509999931674,
+      "rerank_sec_dense+rerank_N100": 0.16868009999961942,
+      "rerank_sec_hybrid_rrf_tuned+rerank_N20": 0.05155200000081095,
+      "rerank_sec_hybrid_rrf_tuned+rerank_N50": 0.08321369999976014,
+      "rerank_sec_hybrid_rrf_tuned+rerank_N100": 0.16223009999885107
+    }
+  }
+}

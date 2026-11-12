@@ -1,6 +1,5 @@
 """BM25 sanity check: Compare custom BM25 on SciFact and NFCorpus against published BEIR baselines."""
 
-import sys
 from rag_bench.data import load_beir_dataset
 from rag_bench.metrics import evaluate_run
 from rag_bench.retrievers.bm25 import BM25Retriever

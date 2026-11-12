@@ -1,0 +1,38 @@
+[
+  {
+    "ef_search": 10,
+    "ann_recall_at_10_vs_exact": 0.7458204334365325,
+    "ndcg_at_10": 0.2970100323722387,
+    "ndcg_loss_vs_exact": 0.040120424215394856
+  },
+  {
+    "ef_search": 20,
+    "ann_recall_at_10_vs_exact": 0.8452012383900929,
+    "ndcg_at_10": 0.3098785604747785,
+    "ndcg_loss_vs_exact": 0.027251896112855056
+  },
+  {
+    "ef_search": 40,
+    "ann_recall_at_10_vs_exact": 0.9235294117647059,
+    "ndcg_at_10": 0.32314034354271154,
+    "ndcg_loss_vs_exact": 0.013990113044922037
+  },
+  {
+    "ef_search": 64,
+    "ann_recall_at_10_vs_exact": 0.9541795665634676,
+    "ndcg_at_10": 0.329946755916321,
+    "ndcg_loss_vs_exact": 0.007183700671312576
+  },
+  {
+    "ef_search": 128,
+    "ann_recall_at_10_vs_exact": 0.9795665634674922,
+    "ndcg_at_10": 0.33503541159906175,
+    "ndcg_loss_vs_exact": 0.002095044988571826
+  },
+  {
+    "ef_search": 256,
+    "ann_recall_at_10_vs_exact": 0.9910216718266255,
+    "ndcg_at_10": 0.3351020840044265,
+    "ndcg_loss_vs_exact": 0.0020283725832070942
+  }
+]

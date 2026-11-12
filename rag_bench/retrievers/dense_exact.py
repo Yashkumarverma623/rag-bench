@@ -1,8 +1,9 @@
-"""Dense exact retriever using sentence-transformers and brute-force cosine matmul."""
-
+import os
+from pathlib import Path
 from typing import Dict, List, Mapping, Sequence, Tuple
 
 import numpy as np
+import torch
 from sentence_transformers import SentenceTransformer
 
 from rag_bench.retrievers.base import BaseRetriever, format_doc_text
@@ -18,15 +19,23 @@ class DenseExactRetriever(BaseRetriever):
         self,
         model_name: str = BGE_SMALL_MODEL_NAME,
         revision: str = BGE_SMALL_REVISION,
-        batch_size: int = 64,
+        batch_size: int = 128,
         device: str = "cpu",
         embeddings: np.ndarray | None = None,
         doc_ids: List[str] | None = None,
+        cache_path: Path | str | None = None,
     ) -> None:
         self.model_name = model_name
         self.revision = revision
         self.batch_size = batch_size
         self.device = device
+        self.cache_path = Path(cache_path) if cache_path else None
+
+        try:
+            cores = os.cpu_count() or 12
+            torch.set_num_threads(max(1, int(cores * 0.65)))
+        except Exception:
+            pass
 
         self._model: SentenceTransformer | None = None
         self.doc_ids: List[str] = doc_ids or []
@@ -61,6 +70,11 @@ class DenseExactRetriever(BaseRetriever):
             self.embeddings = None
             return
 
+        if self.cache_path and self.cache_path.exists():
+            print(f"Loading cached embeddings from {self.cache_path}...", flush=True)
+            self.embeddings = np.load(self.cache_path).astype(np.float32)
+            return
+
         texts = [format_doc_text(corpus[doc_id]) for doc_id in self.doc_ids]
         raw_emb = self.model.encode(
             texts,
@@ -70,6 +84,10 @@ class DenseExactRetriever(BaseRetriever):
             convert_to_numpy=True,
         )
         self.embeddings = raw_emb.astype(np.float32)
+
+        if self.cache_path:
+            self.cache_path.parent.mkdir(parents=True, exist_ok=True)
+            np.save(self.cache_path, self.embeddings)
 
     def search(self, query: str, top_k: int = 100) -> List[Tuple[str, float]]:
         """Retrieve top_k documents via exact cosine similarity."""

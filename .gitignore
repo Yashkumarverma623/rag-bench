@@ -12,6 +12,7 @@ wheels/
 
 # Virtual environments
 .venv/
+.ir_datasets/
 
 # Large raw dataset archives
 datasets/*.zip
